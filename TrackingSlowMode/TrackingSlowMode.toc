@@ -1,0 +1,7 @@
+## Interface: 30300
+## Title: TrackingSlowMode
+## Author: Exzekutor
+## Version: 1.00.00
+
+TrackingSlowMode.lua
+TrackingSlowMode.xml

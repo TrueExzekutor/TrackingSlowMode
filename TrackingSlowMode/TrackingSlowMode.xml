@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Frame name="TrackingSlowMode">
+<Scripts>
+<OnLoad>
+TrackingSlowMode_OnLoad(self);
+</OnLoad>
+<OnEvent>
+TrackingSlowMode_OnEvent(self, event, ...);
+</OnEvent>
+</Scripts>
+</Frame>
+</Ui>
