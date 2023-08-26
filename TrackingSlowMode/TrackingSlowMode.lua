@@ -3,14 +3,17 @@ local timer = nil
 local player = nil
 local timerFrame = nil
 local timerText = nil
+local arg3
+local arg8
+local ProtectFunction = true
+
 
 function TrackingSlowMode_OnLoad(self)
     self:RegisterEvent("CHAT_MSG_CHANNEL")
     frame:SetScript("OnUpdate", function(self, elapsed)
-        if timer then
+        if timer ~= nil then
             timer = timer - elapsed
             if timer <= 0 then
-                print("Timer has ended ^_^")
                 timer = nil
                 timerFrame:Hide()
             else
@@ -34,7 +37,8 @@ function TrackingSlowMode_OnLoad(self)
 end
 
 function TrackingSlowMode_OnEvent(self, event, ...)
-    if event == "CHAT_MSG_CHANNEL" then      
+    if event == "CHAT_MSG_CHANNEL" then
+        arg8 = select(8, ...)
         if player == nil then
             player = GetUnitName("player")
         end
@@ -42,5 +46,32 @@ function TrackingSlowMode_OnEvent(self, event, ...)
             timer = 15
             timerFrame:Show()
         end
+    end
+end
+
+local original_SendChatMessage = SendChatMessage
+
+function SendChatMessage(msg, ...)
+    if ProtectFunction then
+        arg3 = select(3, ...)
+        if timer ~= nil and arg3 == arg8 then
+            print("Slow Mode Active")
+            return
+        end
+    end
+    original_SendChatMessage(msg, ...)
+end
+
+SLASH_TRACKINGSLOWMODE1 = "/TrackingSlowMode"
+SLASH_TRACKINGSLOWMODE2 = "/stsm"
+SlashCmdList["TRACKINGSLOWMODE"] = function(args)
+    if args == "protect on" then
+        ProtectFunction = true
+        print("ProtectMode enabled")
+    elseif args == "protect off" then
+        ProtectFunction = false
+        print("ProtectMode disabled")
+    else
+        print("Invalid command. Usage: /stsm /TrackingSlowMode protect [on|off]")
     end
 end
