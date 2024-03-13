@@ -2,6 +2,6 @@
 ## Title: TrackingSlowMode
 ## Author: Exzekutor
 ## Version: 1.02.00
-
+## X-Sirus-Update https://github.com/TrueExzekutor/TrackingSlowMode/tree/main
 TrackingSlowMode.lua
 TrackingSlowMode.xml
